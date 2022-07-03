@@ -9,13 +9,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.pokedexandroid.R;
 import com.example.pokedexandroid.domain.Pokemon;
 
 import java.util.List;
 
 public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.ViewHolder> {
-    private final List<Pokemon> items;
+    public List<Pokemon> items;
 
     public PokemonAdapter(List<Pokemon> items) {
         this.items = items;
@@ -52,23 +53,23 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.ViewHold
             TextView tvType1 = itemView.findViewById(R.id.tvType1);
             TextView tvType2 = itemView.findViewById(R.id.tvType2);
 
-            //TODO: Load image with Glide
 
-            tvNumber.setText("№" + item.formatedNumber);
-            tvName.setText(item.name);
+            if (item != null) {
+                Glide.with(itemView.getContext()).load(item.imgUrl).into(ivPokemon);
+                tvNumber.setText("№ " + item.formatedNumber);
+                tvName.setText(item.formatedName);
+                tvType1.setText(item.formatedType1);
 
-            //TODO: TIPO ERRADO PO
-            String pokemonType = item.types.get(0).name;
-            tvType1.setText(pokemonType);
-
-            if (item.types.size() > 1) {
-                tvType2.setVisibility(View.VISIBLE);
-                //tvType2.setText((CharSequence) item.types.get(1));
-            } else {
-                tvType2.setVisibility(View.GONE);
+                if (item.types.size() > 1) {
+                    tvType2.setVisibility(View.VISIBLE);
+                    //ERRO AO PASSAR PARA FORMATED TYPE2
+                    tvType2.setText(item.types.get(1).name.substring(0, 1).toUpperCase() + item.types.get(1).name.substring(1));
+                } else {
+                    tvType2.setVisibility(View.GONE);
+                }
             }
-        }
 
+        }
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
         }

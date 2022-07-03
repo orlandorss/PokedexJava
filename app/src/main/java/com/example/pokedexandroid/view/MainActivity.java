@@ -18,11 +18,21 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private PokemonViewModel viewModel;
 
-    public synchronized PokemonViewModel getSampleLifecycleListener() {
+
+    //REFERENTE AO BY LAZY DO KOTLIN
+    public synchronized PokemonViewModel lifeCycleViewModel() {
         if (viewModel == null) {
             viewModel = new ViewModelProvider(this, new PokemonViewModelFactor()).get(PokemonViewModel.class);
         }
         return viewModel;
+    }
+
+    //REFERENTE AO BY LAZY DO KOTLIN
+    public synchronized RecyclerView lifeCycleRecyclerView() {
+        if (recyclerView == null) {
+            recyclerView = findViewById(R.id.rvPokemons);
+        }
+        return recyclerView;
     }
 
 
@@ -31,9 +41,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        recyclerView = findViewById(R.id.rvPokemons);
+        lifeCycleRecyclerView();
 
-        getSampleLifecycleListener().pokemons.observe(this, Observer -> {
+        lifeCycleViewModel().pokemons.observe(this, Observer -> {
                     loadRecyclerView();
                 }
         );

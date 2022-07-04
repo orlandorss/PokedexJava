@@ -18,7 +18,6 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private PokemonViewModel viewModel;
 
-
     //REFERENTE AO BY LAZY DO KOTLIN
     public synchronized PokemonViewModel lifeCycleViewModel() {
         if (viewModel == null) {
@@ -34,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
         }
         return recyclerView;
     }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

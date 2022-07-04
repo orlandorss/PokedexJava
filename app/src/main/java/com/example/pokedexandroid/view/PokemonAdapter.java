@@ -1,5 +1,6 @@
 package com.example.pokedexandroid.view;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,11 +60,52 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.ViewHold
                 tvNumber.setText("№ " + item.formatedNumber);
                 tvName.setText(item.formatedName);
                 tvType1.setText(item.formatedType1);
+                //TODO: CRIAR METODO PARA COR
+                switch (item.formatedType1) {
+
+                    case "Grass":
+                        tvType1.setBackgroundColor(Color.parseColor("#9bcc50"));
+                        tvType1.setTextColor(Color.BLACK);
+                        break;
+                    case "Poison":
+                        tvType1.setBackgroundColor(Color.parseColor("#b97fc9"));
+                        break;
+                    case "Flying":
+                        tvType1.setBackgroundColor(Color.parseColor("#3dc7ef"));
+                        break;
+                    case "Fire":
+                        tvType1.setBackgroundColor(Color.parseColor("#fd7d24"));
+                        break;
+                    case "Water":
+                        tvType1.setBackgroundColor(Color.parseColor("#4592c4"));
+                        break;
+                }
+
 
                 if (item.types.size() > 1) {
                     tvType2.setVisibility(View.VISIBLE);
                     //ERRO AO PASSAR PARA FORMATED TYPE2
                     tvType2.setText(item.types.get(1).name.substring(0, 1).toUpperCase() + item.types.get(1).name.substring(1));
+                    switch (tvType2.getText().toString()) {
+
+                        case "Grass":
+                            tvType2.setBackgroundColor(Color.parseColor("#9bcc50"));
+                            tvType2.setTextColor(Color.BLACK);
+                            break;
+                        case "Poison":
+                            tvType2.setBackgroundColor(Color.parseColor("#b97fc9"));
+                            break;
+                        case "Flying":
+                            tvType2.setBackgroundColor(Color.parseColor("#3dc7ef"));
+                            break;
+                        case "Fire":
+                            tvType2.setBackgroundColor(Color.parseColor("#fd7d24"));
+                            break;
+                        case "Water":
+                            tvType2.setBackgroundColor(Color.parseColor("#4592c4"));
+                            break;
+
+                    }
                 } else {
                     tvType2.setVisibility(View.GONE);
                 }

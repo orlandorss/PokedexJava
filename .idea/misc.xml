@@ -3,8 +3,30 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/pokedexAndroid/app/src/main/res/drawable/bug.xml" value="0.178" />
+        <entry key="..\:/pokedexAndroid/app/src/main/res/drawable/dragao.xml" value="0.178" />
+        <entry key="..\:/pokedexAndroid/app/src/main/res/drawable/electric.xml" value="0.178" />
+        <entry key="..\:/pokedexAndroid/app/src/main/res/drawable/fairy.xml" value="0.178" />
+        <entry key="..\:/pokedexAndroid/app/src/main/res/drawable/fighting.xml" value="0.178" />
+        <entry key="..\:/pokedexAndroid/app/src/main/res/drawable/fire.xml" value="0.178" />
+        <entry key="..\:/pokedexAndroid/app/src/main/res/drawable/flying.xml" value="0.178" />
+        <entry key="..\:/pokedexAndroid/app/src/main/res/drawable/ghost.xml" value="0.178" />
+        <entry key="..\:/pokedexAndroid/app/src/main/res/drawable/grass.xml" value="0.178" />
+        <entry key="..\:/pokedexAndroid/app/src/main/res/drawable/ground.xml" value="0.178" />
+        <entry key="..\:/pokedexAndroid/app/src/main/res/drawable/ice.xml" value="0.178" />
+        <entry key="..\:/pokedexAndroid/app/src/main/res/drawable/normal.xml" value="0.178" />
+        <entry key="..\:/pokedexAndroid/app/src/main/res/drawable/poison.xml" value="0.178" />
+        <entry key="..\:/pokedexAndroid/app/src/main/res/drawable/psychic.xml" value="0.178" />
+        <entry key="..\:/pokedexAndroid/app/src/main/res/drawable/radius_layout.xml" value="0.178" />
+        <entry key="..\:/pokedexAndroid/app/src/main/res/drawable/rock.xml" value="0.178" />
+        <entry key="..\:/pokedexAndroid/app/src/main/res/drawable/steel.xml" value="0.178" />
+        <entry key="..\:/pokedexAndroid/app/src/main/res/drawable/water.xml" value="0.178" />
         <entry key="..\:/pokedexAndroid/app/src/main/res/layout/activity_main.xml" value="0.3170289855072464" />
-        <entry key="..\:/pokedexAndroid/app/src/main/res/layout/pokemon_item.xml" value="0.33" />
+        <entry key="..\:/pokedexAndroid/app/src/main/res/layout/menu.xml" value="0.36666666666666664" />
+        <entry key="..\:/pokedexAndroid/app/src/main/res/layout/pokemon_description.xml" value="0.67" />
+        <entry key="..\:/pokedexAndroid/app/src/main/res/layout/pokemon_item.xml" value="0.5" />
+        <entry key="..\:/pokedexAndroid/app/src/main/res/layout/testlayout.xml" value="0.5" />
+        <entry key="..\:/pokedexAndroid/app/src/main/res/menu/menu.xml" value="0.25" />
       </map>
     </option>
   </component>

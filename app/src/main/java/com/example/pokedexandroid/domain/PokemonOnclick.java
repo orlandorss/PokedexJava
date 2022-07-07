@@ -1,60 +1,47 @@
 package com.example.pokedexandroid.domain;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.pokedexandroid.R;
-import com.example.pokedexandroid.api.viewmodel.PokemonViewModel;
-import com.example.pokedexandroid.api.viewmodel.PokemonViewModelFactor;
 import com.example.pokedexandroid.view.PokemonAdapter;
 
-import java.util.List;
-
 public class PokemonOnclick extends AppCompatActivity {
-    private RecyclerView recyclerView;
-    private PokemonViewModel viewModel;
 
-    //REFERENTE AO BY LAZY DO KOTLIN
-    public synchronized PokemonViewModel lifeCycleViewModel() {
-        if (viewModel == null) {
-            viewModel = new ViewModelProvider(this, new PokemonViewModelFactor()).get(PokemonViewModel.class);
-        }
-        return viewModel;
-    }
+    public PokemonAdapter.ViewHolder items;
 
-    //REFERENTE AO BY LAZY DO KOTLIN
-    public synchronized void lifeCycleRecyclerView() {
-        if (recyclerView == null) {
-            recyclerView = findViewById(R.id.rvPokemons);
-        }
-    }
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pokemon_description);
 
+        TextView textView = findViewById(R.id.tv2Name);
+        TextView tvNumber1 = findViewById(R.id.description_number);
+        ImageView imageView = findViewById(R.id.imageView);
+        String name = "Name not set";
+        String number = "Number not set";
+        String img = " ";
 
-        lifeCycleRecyclerView();
 
-        lifeCycleViewModel().pokemons.observe(this, Observer -> loadRecyclerView()
-        );
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            name = extras.getString("name");
+            number = extras.getString("number");
+            //CONTEM O IMGURL
+            img = extras.getString("img");
+        }
+        Glide.with(getApplicationContext()).load(img).into(imageView);
+        textView.setText(name);
+        tvNumber1.setText("# " + number);
 
     }
 
-
-    private void loadRecyclerView() {
-
-
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(new PokemonAdapter((List<Pokemon>) viewModel.pokemons.getValue()));
-
-    }
 }
 

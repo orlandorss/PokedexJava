@@ -15,6 +15,10 @@ import java.util.stream.Collectors;
 public final class PokemonViewModel extends ViewModel {
     public MutableLiveData<List<Pokemon>> pokemons = new MutableLiveData<>();
 
+    public MutableLiveData<List<Pokemon>> getPokemons() {
+        return pokemons;
+    }
+
     public PokemonViewModel() {
         new Thread(this::loadPokemons).
                 start();

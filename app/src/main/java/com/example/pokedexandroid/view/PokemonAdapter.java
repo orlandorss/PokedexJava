@@ -1,7 +1,6 @@
 package com.example.pokedexandroid.view;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,10 +20,12 @@ import java.util.List;
 
 public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.ViewHolder> {
     public List<Pokemon> items;
+    private RecyclerViewClickListener listener;
 
 
-    public PokemonAdapter(List<Pokemon> items) {
+    public PokemonAdapter(List<Pokemon> items, RecyclerViewClickListener listener) {
         this.items = items;
+        this.listener = listener;
     }
 
     @NonNull
@@ -45,26 +46,14 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.ViewHold
         return items.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
 
-
-        @SuppressLint("SetTextI18n")
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public void bindView(Pokemon item) {
-
             ImageView ivPokemon = itemView.findViewById(R.id.ivPokemon);
             TextView tvNumber = itemView.findViewById(R.id.tvNumber);
             TextView tvName = itemView.findViewById(R.id.tvName);
             Button tvType1 = itemView.findViewById(R.id.tvType1);
             Button tvType2 = itemView.findViewById(R.id.tvType2);
-            Button button = itemView.findViewById(R.id.btPokemon);
-
-            // ImageView imageView = itemView.findViewById(R.id.imageView);
-
-            button.setOnClickListener(v -> {
-                Intent intent = new Intent(button.getContext(), DescriptionActivity.class);
-                button.getContext().startActivity(intent);
-                // int adapter = getAdapterPosition();
-            });
 
 
             if (item != null) {
@@ -73,15 +62,27 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.ViewHold
                 tvName.setText(item.formatedName);
                 tvType1.setText(item.formatedType1);
                 setPokemonsColor1(item, tvType1, tvType2, ivPokemon);
-
             }
+
+
         }
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(final View itemView) {
             super(itemView);
+
+            itemView.setOnClickListener(this);
         }
 
 
+        @Override
+        public void onClick(View v) {
+            listener.onClick(v, getAdapterPosition());
+        }
+    }
+
+    public interface RecyclerViewClickListener {
+
+        void onClick(View v, int position);
     }
 
     @SuppressLint("SetTextI18n")
@@ -256,7 +257,6 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.ViewHold
             tvType2.setVisibility(View.GONE);
         }
     }
-
 
 
     }

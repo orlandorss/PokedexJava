@@ -24,8 +24,8 @@
             </intent-filter>
 
         </activity>
+<activity android:name=".domain.PokemonOnclick" />
 
-        <activity android:name=".view.DescriptionActivity" />
     </application>
 
 </manifest>

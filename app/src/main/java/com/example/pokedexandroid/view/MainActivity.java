@@ -1,8 +1,10 @@
 package com.example.pokedexandroid.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +17,7 @@ import com.example.pokedexandroid.R;
 import com.example.pokedexandroid.api.viewmodel.PokemonViewModel;
 import com.example.pokedexandroid.api.viewmodel.PokemonViewModelFactor;
 import com.example.pokedexandroid.domain.Pokemon;
+import com.example.pokedexandroid.domain.PokemonOnclick;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -23,6 +26,8 @@ import java.util.Objects;
 public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private PokemonViewModel viewModel;
+    private PokemonAdapter.RecyclerViewClickListener listener;
+    public PokemonViewModel items;
 
 
     //REFERENTE AO BY LAZY DO KOTLIN
@@ -46,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
         );
         setContentView(R.layout.activity_main);
         lifeCycleRecyclerView();
-
         super.onCreate(savedInstanceState);
     }
 
@@ -78,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
                 if (filteredShapes.isEmpty()) {
                     Toast.makeText(MainActivity.this, "NO DATA FOUND", Toast.LENGTH_SHORT).show();
                 } else {
-                    PokemonAdapter adapter = new PokemonAdapter(filteredShapes);
+                    PokemonAdapter adapter = new PokemonAdapter(filteredShapes, listener);
                     recyclerView.setAdapter(adapter);
                 }
                 return false;
@@ -89,11 +93,23 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void loadRecyclerView() {
-
+        setOnClickListener();
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(new PokemonAdapter(viewModel.pokemons.getValue()));
+        recyclerView.setAdapter(new PokemonAdapter(viewModel.pokemons.getValue(), listener));
+    }
 
+    private void setOnClickListener() {
+        listener = new PokemonAdapter.RecyclerViewClickListener() {
+            @Override
+            public void onClick(View v, int position) {
+                Intent intent = new Intent(getApplicationContext(), PokemonOnclick.class);
+                intent.putExtra("name", viewModel.pokemons.getValue().get(position).formatedName);
+                intent.putExtra("number", viewModel.pokemons.getValue().get(position).formatedNumber);
+                intent.putExtra("img", viewModel.pokemons.getValue().get(position).imgUrl);
+                startActivity(intent);
+            }
+        };
     }
 }
 

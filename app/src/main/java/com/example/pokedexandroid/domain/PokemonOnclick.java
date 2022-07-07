@@ -27,11 +27,10 @@ public class PokemonOnclick extends AppCompatActivity {
     }
 
     //REFERENTE AO BY LAZY DO KOTLIN
-    public synchronized RecyclerView lifeCycleRecyclerView() {
+    public synchronized void lifeCycleRecyclerView() {
         if (recyclerView == null) {
             recyclerView = findViewById(R.id.rvPokemons);
         }
-        return recyclerView;
     }
 
     @Override
@@ -42,9 +41,7 @@ public class PokemonOnclick extends AppCompatActivity {
 
         lifeCycleRecyclerView();
 
-        lifeCycleViewModel().pokemons.observe(this, Observer -> {
-                    loadRecyclerView();
-                }
+        lifeCycleViewModel().pokemons.observe(this, Observer -> loadRecyclerView()
         );
 
     }

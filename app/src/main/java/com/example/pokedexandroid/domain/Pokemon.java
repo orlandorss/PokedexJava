@@ -1,5 +1,7 @@
 package com.example.pokedexandroid.domain;
 
+import android.annotation.SuppressLint;
+
 import com.example.pokedexandroid.api.model.PokemonResult;
 
 import java.util.List;
@@ -16,6 +18,7 @@ public class Pokemon extends PokemonResult {
 
     public String imgUrl;
 
+    @SuppressLint("DefaultLocale")
     public Pokemon(int number, String name, List<PokemonType> types) {
         this.number = number;
         this.name = name;
@@ -26,9 +29,6 @@ public class Pokemon extends PokemonResult {
         this.colorbg = "https://pokeapi.co/api/v2/type/" + formatedType1 + "/";
         this.imgUrl = "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/" + formatedNumber + ".png";
     }
-
-
-
 
 }
 

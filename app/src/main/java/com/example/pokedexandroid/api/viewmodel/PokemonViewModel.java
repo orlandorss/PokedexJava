@@ -13,19 +13,16 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public final class PokemonViewModel extends ViewModel {
-    public MutableLiveData<List<Pokemon>> pokemons = new MutableLiveData<List<Pokemon>>();
-
+    public MutableLiveData<List<Pokemon>> pokemons = new MutableLiveData<>();
 
     public PokemonViewModel() {
         new Thread(this::loadPokemons).
-
                 start();
     }
 
     public void loadPokemons() {
         try {
             PokemonsApiResult pokemonsApiResult = PokemonRepository.listPokemons(151);
-
             assert pokemonsApiResult.results != null;
             pokemons.postValue(pokemonsApiResult.results.stream().map(pokemonResult -> {
                 int number;
@@ -44,11 +41,10 @@ public final class PokemonViewModel extends ViewModel {
                 );
             }).collect(Collectors.toList()));
 
-
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
 
+    }
 
 }

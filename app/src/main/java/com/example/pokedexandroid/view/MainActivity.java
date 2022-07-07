@@ -1,6 +1,8 @@
 package com.example.pokedexandroid.view;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,18 +17,12 @@ import com.example.pokedexandroid.api.viewmodel.PokemonViewModelFactor;
 import com.example.pokedexandroid.domain.Pokemon;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private PokemonViewModel viewModel;
-
-    private SearchView searchView;
-    private String selectedFilter = "all";
-    private String currentSearchText = "";
-    public static ArrayList<Pokemon> shapeList = new ArrayList<Pokemon>();
 
 
     //REFERENTE AO BY LAZY DO KOTLIN
@@ -38,27 +34,30 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //REFERENTE AO BY LAZY DO KOTLIN
-    public synchronized RecyclerView lifeCycleRecyclerView() {
+    public synchronized void lifeCycleRecyclerView() {
         if (recyclerView == null) {
             recyclerView = findViewById(R.id.rvPokemons);
         }
-        return recyclerView;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        lifeCycleViewModel().pokemons.observe(this, Observer -> loadRecyclerView()
+        );
         setContentView(R.layout.activity_main);
         lifeCycleRecyclerView();
-        lifeCycleViewModel().pokemons.observe(this, Observer -> {
-                    loadRecyclerView();
-                }
-        );
-        initSearchWidgets();
+
+        super.onCreate(savedInstanceState);
     }
 
-    private void initSearchWidgets() {
-        searchView = (SearchView) findViewById(R.id.search_bar);
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.menu, menu);
+
+        MenuItem menuItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) menuItem.getActionView();
+        searchView.setQueryHint("Type here to search");
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -68,8 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String s) {
-                currentSearchText = s;
-                ArrayList<Pokemon> filteredShapes = new ArrayList<Pokemon>();
+                ArrayList<Pokemon> filteredShapes = new ArrayList<>();
 
                 for (Pokemon pokemon : Objects.requireNonNull(viewModel.pokemons.getValue())) {
                     if (pokemon.name.toLowerCase().contains(s.toLowerCase())) {
@@ -83,19 +81,18 @@ public class MainActivity extends AppCompatActivity {
                     PokemonAdapter adapter = new PokemonAdapter(filteredShapes);
                     recyclerView.setAdapter(adapter);
                 }
-
                 return false;
             }
         });
+        return super.onCreateOptionsMenu(menu);
     }
+
 
     private void loadRecyclerView() {
 
-
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(new PokemonAdapter((List<Pokemon>) viewModel.pokemons.getValue()));
-
+        recyclerView.setAdapter(new PokemonAdapter(viewModel.pokemons.getValue()));
 
     }
 }

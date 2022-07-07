@@ -13,13 +13,17 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class PokemonRepository {
     private static final PokemonService service;
 
+
     static {
+
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://pokeapi.co/api/v2/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         service = retrofit.create(PokemonService.class);
     }
+
 
     public static PokemonsApiResult listPokemons(int limit) throws IOException {
 
